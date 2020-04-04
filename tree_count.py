@@ -1,13 +1,8 @@
-#%%
 from pathlib import Path
-import pandas as pd
+import argparse
 
-#%%
-
-root_dir = Path("/", "Users", "Anil", "Onedrive", "Documents", "Raw photos - Copy")
-
-# %%
-def dir_with_count(start_dir: Path):
+def dir_with_count(start_dir: str):
+    start_dir = Path(start_dir)
     dir_count = list()
     objects = start_dir.glob("*")
     n_files = 0
@@ -22,11 +17,13 @@ def dir_with_count(start_dir: Path):
         dir_count.extend([{"dir" : start_dir, "n_files" : n_files}])
     return(dir_count)
 
-
-# %%
-def main():
-    out = dir_with_count(root_dir)
-    for idx in out: print((f""" {idx["dir"]} : {idx["n_files"]} """).strip())
-
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(
+        description='Print tree of subdirectories with number of files'
+    )
+    parser.add_argument('dir', metavar='dir', type=str, nargs='?', default=".",
+                    help='Starting directory')
+    args = parser.parse_args()
+    out = dir_with_count(args.dir)
+    for idx in out: print((f""" {idx["dir"]} : {idx["n_files"]} """).strip())
+    
