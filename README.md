@@ -3,6 +3,6 @@ Return a list of all subdirectories with the number of files.
 
 Todo
 
-* make into cmd line
+* accept arguments
 * Pretty tree stick
 * limit to certain files
